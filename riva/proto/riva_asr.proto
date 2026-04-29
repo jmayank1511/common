@@ -106,11 +106,14 @@ message StreamingRecognizeRequest {
     bytes audio_content = 2;
   }
 
-  // If true, forces an immediate end-of-utterance for the current stream,
-  // emitting a final transcript without ending the stream. Unlike closing the
-  // stream (is_last), the stream remains open and subsequent audio continues
-  // as a new utterance. Can be set on any audio_content message.
-  bool force_eou = 3;
+  // Per-chunk runtime configuration passed alongside audio_content messages.
+  // Supported keys:
+  //   "force_eou" = "true" : Forces an immediate end-of-utterance for the
+  //       current stream, emitting a final transcript without ending the stream.
+  //       Unlike closing the stream (is_last), the stream remains open and
+  //       subsequent audio continues as a new utterance. Only supported for
+  //       cache-aware RNNT models.
+  map<string, string> runtime_config = 3;
 
   // The ID to be associated with the request. If provided, this will be
   // returned in the corresponding responses.
