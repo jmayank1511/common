@@ -107,12 +107,14 @@ message StreamingRecognizeRequest {
   }
 
   // Per-chunk runtime configuration passed alongside audio_content messages.
+  // This is an OPTIONAL parameter which should be used when client needs to 
+  // tune server configuration during an ongoing session.
   // Supported keys:
   //   "force_eou" = "true" : Forces an immediate end-of-utterance for the
-  //       current stream, emitting a final transcript without ending the stream.
-  //       Unlike closing the stream (is_last), the stream remains open and
-  //       subsequent audio continues as a new utterance. Only supported for
-  //       cache-aware RNNT models.
+  //   current stream, emitting a final transcript without ending the stream.
+  //   Unlike closing the stream (is_last), the stream remains open and
+  //   subsequent audio continues as a new utterance. Only supported for
+  //   cache-aware RNNT models.
   map<string, string> runtime_config = 3;
 
   // The ID to be associated with the request. If provided, this will be
